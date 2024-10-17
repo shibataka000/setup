@@ -1,0 +1,17 @@
+name: Test
+on:
+  push:
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        tool:
+          - terraform
+    steps:
+      - uses: actions/checkout@v4
+      - run: make install
+        working-directory: ${{ matrix.tool }}
+        env:
+          GH_TOKEN: ${{ github.token }}
