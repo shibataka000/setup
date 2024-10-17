@@ -8,6 +8,7 @@ jobs:
     strategy:
       matrix:
         tool:
+          - go
           - terraform
     steps:
       - uses: actions/checkout@v4
