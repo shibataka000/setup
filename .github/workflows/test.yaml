@@ -13,3 +13,5 @@ jobs:
       - uses: actions/checkout@v4
       - run: make install
         working-directory: ${{ matrix.tool }}
+        env:
+          GH_TOKEN: ${{ github.token }}
