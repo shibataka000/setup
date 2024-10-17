@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := install
+.DEFAULT_GOAL := update
 
 VERSION := $(patsubst v%,%,$(shell gh release list -R hashicorp/terraform -q .[0].tagName --json tagName --exclude-drafts --exclude-pre-releases -L 1))
 INSTALL_PATH := /usr/local/bin/terraform
@@ -8,15 +8,18 @@ DOWNLOAD_URL := https://releases.hashicorp.com/terraform/$(VERSION)/terraform_$(
 .PHONY: install
 install: $(INSTALL_PATH)
 
+.PHONY: uninstall
+uninstall:
+	sudo rm $(INSTALL_PATH)
+
+.PHONY: update
+update: uninstall install
+
 $(INSTALL_PATH): $(DOWNLOAD_PATH)
 	sudo unzip -o -d $(@D) $(<) $(@F)
 	$(@) version
 
 $(DOWNLOAD_PATH): FORCE
 	curl -sL $(DOWNLOAD_URL) -o $(@)
-
-.PHONY: uninstall
-uninstall:
-	sudo rm $(INSTALL_PATH)
 
 FORCE:
