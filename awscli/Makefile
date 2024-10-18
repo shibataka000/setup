@@ -9,7 +9,7 @@ install: $(INSTALL_PATH)
 
 .PHONY: uninstall
 uninstall:
-	sudo rm $(INSTALL_PATH)
+	sudo rm -r $(INSTALL_PATH)
 
 .PHONY: update
 update: uninstall install
