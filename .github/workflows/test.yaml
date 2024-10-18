@@ -11,9 +11,21 @@ jobs:
           - awscli
           - go
           - terraform
+        include:
+          - tool: awscli
+            pre-installed: true
+          - tool: go
+            pre-installed: false
+          - tool: terraform
+            pre-installed: true
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
+      - run: make uninstall
+        working-directory: ${{ matrix.tool }}
+        if: ${{ matrix.pre-installed == true || matrix.pre-installed == 'true' }}
       - run: make install
         working-directory: ${{ matrix.tool }}
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - run: make update
+        working-directory: ${{ matrix.tool }}
