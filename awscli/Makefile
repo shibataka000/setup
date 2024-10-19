@@ -1,13 +1,10 @@
 .DEFAULT_GOAL := update
 
 BIN_DIR := /usr/local/bin
-INSTALL_DIR := /usr/local/aws-cli
-UNARCHIVE_DIR := $(shell mktemp -d)
-
 AWS := $(BIN_DIR)/aws
 AWS_COMPLETER := $(BIN_DIR)/aws_completer
-INSTALLER := $(UNARCHIVE_DIR)/aws/install
-
+INSTALL_DIR := /usr/local/aws-cli
+INSTALLER_DIR := $(shell mktemp -d)
 PACKAGE_SOURCE_URL := https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 PACKAGE := $(shell mktemp)
 
@@ -26,11 +23,11 @@ $(AWS): $(INSTALL_DIR)
 
 $(AWS_COMPLETER): $(INSTALL_DIR)
 
-$(INSTALL_DIR): $(INSTALLER)
-	sudo $(<)
+$(INSTALL_DIR): $(INSTALLER_DIR)
+	sudo $(<)/aws/installer
 
-$(INSTALLER): $(PACKAGE)
-	unzip -d $(UNARCHIVE_DIR) $(<)
+$(INSTALLER_DIR): $(PACKAGE)
+	unzip -d $(@) $(<)
 
 $(PACKAGE): FORCE
 	curl -sL $(PACKAGE_SOURCE_URL) -o $(@)
