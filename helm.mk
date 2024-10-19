@@ -1,21 +1,21 @@
 .DEFAULT_GOAL := update
 
-HELM := /usr/local/bin/helm
+BIN := /usr/local/bin/helm
 VERSION := $(shell gh release list -R helm/helm -q .[0].tagName --json tagName --exclude-drafts --exclude-pre-releases -L 1)
 PACKAGE_SOURCE_URL := https://get.helm.sh/helm-$(VERSION)-linux-amd64.tar.gz
 PACKAGE := $(shell mktemp)
 
 .PHONY: install
-install: $(HELM)
+install: $(BIN)
 
 .PHONY: uninstall
 uninstall:
-	sudo rm $(HELM)
+	sudo rm $(BIN)
 
 .PHONY: update
 update: uninstall install
 
-$(HELM): $(PACKAGE)
+$(BIN): $(PACKAGE)
 	sudo tar -C $(@D) -xzf $(<) linux-amd64/helm --strip-components 1
 	$(@) version
 
