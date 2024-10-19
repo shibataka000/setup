@@ -18,7 +18,7 @@ update: uninstall install
 $(KUBECTL): $(PACKAGE)
 	sudo cp $(<) $(@)
 	sudo chmod +x $(@)
-	$(@) version --client=true
+	$(@) version --client
 
 $(PACKAGE): FORCE
 	curl -sL $(PACKAGE_SOURCE_URL) -o $(@)
