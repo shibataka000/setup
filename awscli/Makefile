@@ -17,7 +17,7 @@ uninstall:
 update: uninstall install
 
 $(INSTALL_DIR): $(INSTALLER)
-	sudo $(<)/aws/installer
+	sudo $(<)/aws/install
 	$(@)/v2/current/bin/aws --version
 
 $(INSTALLER): $(PACKAGE)
