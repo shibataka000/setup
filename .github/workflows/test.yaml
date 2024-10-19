@@ -10,12 +10,15 @@ jobs:
         tool:
           - awscli
           - go
+          - helm
           - terraform
         include:
           - tool: awscli
             pre-installed: true
           - tool: go
             pre-installed: false
+          - tool: helm
+            pre-installed: true
           - tool: terraform
             pre-installed: true
     env:
