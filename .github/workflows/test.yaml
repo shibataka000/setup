@@ -10,11 +10,14 @@ jobs:
         tool:
           - awscli
           - go
+          - teleport
           - terraform
         include:
           - tool: awscli
             pre-installed: true
           - tool: go
+            pre-installed: false
+          - tool: teleport
             pre-installed: false
           - tool: terraform
             pre-installed: true
