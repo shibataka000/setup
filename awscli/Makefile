@@ -21,7 +21,7 @@ $(INSTALL_DIR): $(INSTALLER)
 	$(@)/v2/current/bin/aws --version
 
 $(INSTALLER): $(PACKAGE)
-	unzip -d $(@) $(<)
+	unzip -q -d $(@) $(<)
 
 $(PACKAGE): FORCE
 	curl -sL $(PACKAGE_SOURCE_URL) -o $(@)

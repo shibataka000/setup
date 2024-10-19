@@ -16,7 +16,7 @@ uninstall:
 update: uninstall install
 
 $(TERRAFORM): $(PACKAGE)
-	sudo unzip -o -d $(@D) $(<) $(@F)
+	sudo unzip -q -o -d $(@D) $(<) $(@F)
 	$(@) version
 
 $(PACKAGE): FORCE
