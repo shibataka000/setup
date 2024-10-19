@@ -1,32 +1,26 @@
 .DEFAULT_GOAL := update
 
-BIN_DIR := /usr/local/bin
-AWS := $(BIN_DIR)/aws
-AWS_COMPLETER := $(BIN_DIR)/aws_completer
+SYMLINKS := /usr/local/bin/aws /usr/local/bin/aws_completer
 INSTALL_DIR := /usr/local/aws-cli
-INSTALLER_DIR := $(shell mktemp -d)
+INSTALLER := $(shell mktemp -d)
 PACKAGE_SOURCE_URL := https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 PACKAGE := $(shell mktemp)
 
 .PHONY: install
-install: $(AWS) $(AWS_COMPLETER)
+install: $(INSTALL_DIR)
 
 .PHONY: uninstall
 uninstall:
-	sudo rm -r $(AWS) $(AWS_COMPLETER) $(INSTALL_DIR)
+	sudo rm -r $(INSTALL_DIR) $(SYMLINKS)
 
 .PHONY: update
 update: uninstall install
 
-$(AWS): $(INSTALL_DIR)
-	$(@) --version
-
-$(AWS_COMPLETER): $(INSTALL_DIR)
-
-$(INSTALL_DIR): $(INSTALLER_DIR)
+$(INSTALL_DIR): $(INSTALLER)
 	sudo $(<)/aws/installer
+	$(@)/v2/current/bin/aws --version
 
-$(INSTALLER_DIR): $(PACKAGE)
+$(INSTALLER): $(PACKAGE)
 	unzip -d $(@) $(<)
 
 $(PACKAGE): FORCE
