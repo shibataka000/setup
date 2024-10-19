@@ -9,10 +9,13 @@ jobs:
       matrix:
         tool:
           - awscli
+          - kubectl
           - go
           - terraform
         include:
           - tool: awscli
+            pre-installed: true
+          - tool: kubectl
             pre-installed: true
           - tool: go
             pre-installed: false
