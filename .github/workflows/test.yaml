@@ -16,7 +16,7 @@ jobs:
           - tool: awscli
             pre-installed: true
           - tool: kubectl
-            pre-installed: true
+            pre-installed: false
           - tool: go
             pre-installed: false
           - tool: terraform
