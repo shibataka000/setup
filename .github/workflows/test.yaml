@@ -12,6 +12,7 @@ jobs:
           - kubectl
           - go
           - helm
+          - teleport
           - terraform
         include:
           - tool: awscli
@@ -22,6 +23,8 @@ jobs:
             pre-installed: false
           - tool: helm
             pre-installed: true
+          - tool: teleport
+            pre-installed: false
           - tool: terraform
             pre-installed: true
     env:
