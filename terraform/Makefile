@@ -1,25 +1,25 @@
 .DEFAULT_GOAL := update
 
+TERRAFORM := /usr/local/bin/terraform
 VERSION := $(patsubst v%,%,$(shell gh release list -R hashicorp/terraform -q .[0].tagName --json tagName --exclude-drafts --exclude-pre-releases -L 1))
-INSTALL_PATH := /usr/local/bin/terraform
-DOWNLOAD_PATH := $(shell mktemp)
-DOWNLOAD_URL := https://releases.hashicorp.com/terraform/$(VERSION)/terraform_$(VERSION)_linux_amd64.zip
+PACKAGE_SOURCE_URL := https://releases.hashicorp.com/terraform/$(VERSION)/terraform_$(VERSION)_linux_amd64.zip
+PACKAGE := $(shell mktemp)
 
 .PHONY: install
-install: $(INSTALL_PATH)
+install: $(TERRAFORM)
 
 .PHONY: uninstall
 uninstall:
-	sudo rm $(INSTALL_PATH)
+	sudo rm $(TERRAFORM)
 
 .PHONY: update
 update: uninstall install
 
-$(INSTALL_PATH): $(DOWNLOAD_PATH)
-	sudo unzip -o -d $(@D) $(<) $(@F)
+$(TERRAFORM): $(PACKAGE)
+	sudo unzip -q -o -d $(@D) $(<) $(@F)
 	$(@) version
 
-$(DOWNLOAD_PATH): FORCE
-	curl -sL $(DOWNLOAD_URL) -o $(@)
+$(PACKAGE): FORCE
+	curl -sL $(PACKAGE_SOURCE_URL) -o $(@)
 
 FORCE:
