@@ -1,8 +1,8 @@
 .DEFAULT_GOAL := update
 
-SYMLINKS := /usr/local/bin/aws /usr/local/bin/aws_completer
 INSTALL_DIR := /usr/local/aws-cli
 INSTALLER := $(shell mktemp -d)
+SYMLINKS := /usr/local/bin/aws /usr/local/bin/aws_completer
 PACKAGE_SOURCE_URL := https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 PACKAGE := $(shell mktemp)
 
