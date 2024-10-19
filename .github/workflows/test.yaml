@@ -9,14 +9,20 @@ jobs:
       matrix:
         tool:
           - awscli
+          - kubectl
           - go
+          - helm
           - teleport
           - terraform
         include:
           - tool: awscli
             pre-installed: true
+          - tool: kubectl
+            pre-installed: false
           - tool: go
             pre-installed: false
+          - tool: helm
+            pre-installed: true
           - tool: teleport
             pre-installed: false
           - tool: terraform
